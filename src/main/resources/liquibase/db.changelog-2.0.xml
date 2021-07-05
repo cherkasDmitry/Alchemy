@@ -1,0 +1,64 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2.0.0" author="dmitry.cherkas">
+
+        <insert tableName="roles">
+            <column name="role_name" value="User"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="role_name" value="Admin"/>
+        </insert>
+
+    </changeSet>
+
+    <changeSet id="2.0.1" author="dmitry.cherkas">
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Prostitute blood"/>
+            <column name="ingredient_type" value="LIQUID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="6"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Virgin blood"/>
+            <column name="ingredient_type" value="LIQUID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="14"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Dust dragon dust"/>
+            <column name="ingredient_type" value="POWDER"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="39"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Black zebra stripe"/>
+            <column name="ingredient_type" value="POWDER"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="16"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="MP tear"/>
+            <column name="ingredient_type" value="LIQUID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="22"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="13th century monk bubo filmed posthumously"/>
+            <column name="ingredient_type" value="SOLID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="54"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
