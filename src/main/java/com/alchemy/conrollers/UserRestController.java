@@ -7,7 +7,6 @@ import com.alchemy.facade.AlchemyFacade;
 import com.alchemy.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ import java.util.List;
 import static com.alchemy.utils.AlchemyConstants.MAGISTER_ALCHEMIST;
 
 @RestController
-@RequestMapping(value = "/alchemy/api/v1/user/")
+@RequestMapping(value = "/alchemy/api/v1/user")
 public class UserRestController {
 
     private final UserService userService;
@@ -35,83 +34,51 @@ public class UserRestController {
         this.alchemyFacade = alchemyService;
     }
 
-    @GetMapping("recipes")
-    public ResponseEntity<List<List<IngredientDto>>> getAvailableRecipes() {
-        try {
-            return ResponseEntity.ok(alchemyFacade.getAvailableRecipes());
-        } catch (Exception e) {
-            throw new RuntimeException("Getting available recipes ERROR");
-        }
+    @GetMapping("/recipes")
+    public List<List<IngredientDto>> getAvailableRecipes() {
+        return alchemyFacade.getAvailableRecipes();
     }
 
     @Secured(MAGISTER_ALCHEMIST)
-    @GetMapping("list")
-    public ResponseEntity<List<UserDto>> getAll() {
-        try {
-            return ResponseEntity.ok(userService.getAll());
-        } catch (Exception e) {
-            throw new RuntimeException("Getting user List ERROR");
-        }
+    @GetMapping("/list")
+    public List<UserDto> getAll() {
+        return userService.getAll();
     }
 
-    @GetMapping("id/{user_id}")
-    public ResponseEntity<UserDto> getById(@PathVariable(value = "user_id") String id) {
-        try {
-            return ResponseEntity.ok(userService.getById(id));
-        } catch (Exception e) {
-            throw new RuntimeException("Getting user by id ERROR");
-        }
+    @GetMapping("/{id}")
+    public UserDto getById(@PathVariable(value = "id") String id) {
+        return userService.getById(id);
     }
 
-    @GetMapping("name/{user_name}")
-    public ResponseEntity<UserDto> getByName(@PathVariable(value = "user_name") String name) {
-        try {
-            return ResponseEntity.ok(userService.getByName(name));
-        } catch (Exception e) {
-            throw new RuntimeException("Getting user by name ERROR");
-        }
+    @GetMapping("/{name}")
+    public UserDto getByName(@PathVariable(value = "name") String name) {
+        return userService.getByName(name);
     }
 
     @Secured(MAGISTER_ALCHEMIST)
-    @DeleteMapping("delete/{user_id}")
-    public ResponseEntity.BodyBuilder delete(@PathVariable(value = "user_id") String id) {
-        try {
-            userService.delete(id);
-            return ResponseEntity.status(HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException("Deleting user ERROR");
-        }
+    @DeleteMapping("/{id}")
+    public HttpStatus delete(@PathVariable(value = "id") String id) {
+        userService.delete(id);
+        return HttpStatus.OK;
     }
 
-    @PutMapping("buy/{ingredient_name}/{ingredients_number}")
-    public ResponseEntity.BodyBuilder buyIngredient(@PathVariable(value = "ingredient_name") String name,
+    @PutMapping("/buy/{ingredient_name}/{ingredients_number}")
+    public HttpStatus buyIngredient(@PathVariable(value = "ingredient_name") String name,
                                                     @PathVariable(value = "ingredients_number") Integer number) {
-        try {
-            alchemyFacade.buyIngredient(name, number);
-            return ResponseEntity.status(HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException("Buying ingredient ERROR");
-        }
+        alchemyFacade.buyIngredient(name, number);
+        return HttpStatus.OK;
     }
 
-    @PutMapping("sell/ingredient/{ingredient_name}/{ingredients_number}")
-    public ResponseEntity.BodyBuilder sellIngredient(@PathVariable(value = "ingredient_name") String name,
+    @PutMapping("/sell/ingredient/{ingredient_name}/{ingredients_number}")
+    public HttpStatus sellIngredient(@PathVariable(value = "ingredient_name") String name,
                                                      @PathVariable(value = "ingredients_number") Integer number) {
-        try {
-            alchemyFacade.sellIngredient(name, number);
-            return ResponseEntity.status(HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException("Selling ingredient ERROR");
-        }
+        alchemyFacade.sellIngredient(name, number);
+        return HttpStatus.OK;
     }
 
-    @PostMapping("mix")
-    public ResponseEntity<IngredientDto> makeElixir(@RequestBody CombineIngredientsRequest items) {
-        try {
-            return ResponseEntity.ok(alchemyFacade.makeElixir(items));
-        } catch (Exception e) {
-            throw new RuntimeException("Making elixir ERROR");
-        }
+    @PostMapping("/mix")
+    public IngredientDto makeElixir(@RequestBody CombineIngredientsRequest items) {
+        return alchemyFacade.makeElixir(items);
     }
 }
 
