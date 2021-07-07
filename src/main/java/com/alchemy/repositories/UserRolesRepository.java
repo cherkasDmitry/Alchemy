@@ -1,11 +1,13 @@
 package com.alchemy.repositories;
 
-import com.alchemy.entities.UserRoles;
+import com.alchemy.entities.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRolesRepository extends JpaRepository<UserRoles, String> {
+import java.util.Optional;
 
-    UserRoles findByName(String name);
+@Repository
+public interface UserRolesRepository extends JpaRepository<UserRole, String> {
+
+    Optional<UserRole> findByName(String name);
 }

@@ -3,7 +3,7 @@ package com.alchemy.utils;
 import com.alchemy.entities.Ingredient;
 import com.alchemy.entities.IngredientType;
 import com.alchemy.entities.User;
-import com.alchemy.entities.UserRoles;
+import com.alchemy.entities.UserRole;
 import com.alchemy.security.jwt.JwtUser;
 import com.alchemy.transformers.impl.JwtUserTransformer;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,8 +22,9 @@ public class AlchemyUtils {
                         .getPrincipal());
     }
 
-    public static User setRole(UserRoles role, User user) {
-        List<UserRoles> userRoles = new ArrayList<>();
+    public static User setRole(UserRole role, User user) {
+        if (role == null) throw new RuntimeException();
+        List<UserRole> userRoles = new ArrayList<>();
         userRoles.add(role);
         user.setRoles(userRoles);
         return user;

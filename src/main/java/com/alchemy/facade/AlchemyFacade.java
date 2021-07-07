@@ -7,7 +7,7 @@ import com.alchemy.entities.Ingredient;
 import com.alchemy.entities.IngredientType;
 import com.alchemy.entities.Recipe;
 import com.alchemy.entities.User;
-import com.alchemy.entities.UserRoles;
+import com.alchemy.entities.UserRole;
 import com.alchemy.repositories.AmountRepository;
 import com.alchemy.repositories.IngredientRepository;
 import com.alchemy.repositories.RecipeRepository;
@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.alchemy.utils.AlchemyConstants.FACADE_LOGGER;
+import static com.alchemy.utils.AlchemyConstants.FACADE_LOGGER_NAME;
 import static com.alchemy.utils.AlchemyConstants.SIMPLE_ALCHEMIST;
 
 @Slf4j
@@ -42,19 +42,23 @@ public class AlchemyFacade {
 
     public List<List<IngredientDto>> getAvailableRecipes() {
         User user = AlchemyUtils.setRole(
-                rolesRepository.findByName(SIMPLE_ALCHEMIST),
+                rolesRepository.findByName(SIMPLE_ALCHEMIST).isPresent()
+                        ? rolesRepository.findByName(SIMPLE_ALCHEMIST).get()
+                        : null,
                 AlchemyUtils.getUserFromContextHolder()
         );
         return recipeRepository.findByOwners(user).stream()
-                .map(Recipe::getRecipes)
+                .map(Recipe::getRecipe)
                 .map(ingredientTransformer::entityToDto)
                 .collect(Collectors.toList());
     }
 
     public void buyIngredient(String name, Integer number) {
         User user = AlchemyUtils.setRole(getAlchemyRole(), AlchemyUtils.getUserFromContextHolder());
-        Ingredient ingredient = ingredientRepository.getIngredientByName(name);
-        if (user.getCoins().compareTo(ingredient.getCost() * number) >= 0) {
+        Ingredient ingredient = ingredientRepository.getIngredientByName(name).isPresent()
+                ? ingredientRepository.getIngredientByName(name).get()
+                : null;
+        if (ingredient != null && user.getCoins().compareTo(ingredient.getCost() * number) >= 0) {
             Integer ingredientAmount = amountRepository
                     .findByUserIdAndIngredientId(user.getId(), ingredient.getId())
                     .getAmount();
@@ -64,14 +68,16 @@ public class AlchemyFacade {
                     .findByUserIdAndIngredientId(user.getId(), ingredient.getId())
                     .setAmount(ingredientAmount + number);
             userRepository.save(user);
-            log.info("{} was bought by {}; for - {}", name, user.getName(), FACADE_LOGGER);
-        } else log.info("NOT ENOUGH COINS ; for - {}", FACADE_LOGGER);
+            log.info("{} was bought by {}; for - {}", name, user.getName(), FACADE_LOGGER_NAME);
+        } else log.info("NOT FOUND OR NOT ENOUGH COINS ; for - {}", FACADE_LOGGER_NAME);
     }
 
     public void sellIngredient(String name, Integer number) {
         User user = AlchemyUtils.setRole(getAlchemyRole(), AlchemyUtils.getUserFromContextHolder());
-        Ingredient ingredient = ingredientRepository.getIngredientByName(name);
-        if (AlchemyUtils.ifContains(Collections.singletonList(user.getIngredients()), ingredient)) {
+        Ingredient ingredient = ingredientRepository.getIngredientByName(name).isPresent()
+                ? ingredientRepository.getIngredientByName(name).get()
+                : null;
+        if (ingredient != null && AlchemyUtils.ifContains(Collections.singletonList(user.getIngredients()), ingredient)) {
             Integer ingredientAmount = amountRepository
                     .findByUserIdAndIngredientId(user.getId(), ingredient.getId())
                     .getAmount();
@@ -87,9 +93,9 @@ public class AlchemyFacade {
                         : ingredient.getCost() / 2;
                 user.setCoins(user.getCoins() + cost);
                 userRepository.save(user);
-                log.info("Ingredient {} was sold ; for - {}", name, FACADE_LOGGER);
-            } else log.info("You have less ingredients than {}; for - {}", number, FACADE_LOGGER);
-        } else log.info("You have no such ingredient: {}; for - {}", name, FACADE_LOGGER);
+                log.info("Ingredient {} was sold ; for - {}", name, FACADE_LOGGER_NAME);
+            } else log.info("You have less ingredients than {}; for - {}", number, FACADE_LOGGER_NAME);
+        } else log.info("NOT FOUND or You have no such ingredient: {}; for - {}", name, FACADE_LOGGER_NAME);
     }
 
     public IngredientDto makeElixir(CombineIngredientsRequest items) {
@@ -103,7 +109,7 @@ public class AlchemyFacade {
                 user.getIngredients().add(resultElixir);
                 userRepository.save(user);
                 log.info("User {} successfully created {} elixir with helping already unlocked recipe; for - {}",
-                        user.getName(), resultElixir.getName(), FACADE_LOGGER);
+                        user.getName(), resultElixir.getName(), FACADE_LOGGER_NAME);
                 return ingredientTransformer.entityToDto(resultElixir);
             }
             List<Ingredient> elixirList = ingredientTransformer
@@ -113,25 +119,30 @@ public class AlchemyFacade {
             if (resultElixir != null) {
                 amount = amountRepository.findByUserIdAndIngredientId(user.getId(), resultElixir.getId());
                 user.getIngredients().add(resultElixir);
-                user.getUnlockedRecipes().add(recipeRepository.getByName(resultElixir.getName()));
+                user.getUnlockedRecipes().add(
+                        recipeRepository.getByName(resultElixir.getName()).isPresent()
+                                ? recipeRepository.getByName(resultElixir.getName()).get()
+                                : null);
                 consumeSuccessfulUsedIngredients(items.getIngredients(), user, amount);
                 userRepository.save(user);
                 log.info("User {} successfully created {} elixir; for - {}",
-                        user.getName(), resultElixir.getName(), FACADE_LOGGER);
+                        user.getName(), resultElixir.getName(), FACADE_LOGGER_NAME);
                 return ingredientTransformer.entityToDto(resultElixir);
             } else {
                 consumeUnsuccessfulUsedIngredients(items.getIngredients(), user.getIngredients(), user);
                 userRepository.save(user);
-                log.info("Unsuccessful making elixir; for - {}", FACADE_LOGGER);
+                log.info("Unsuccessful making elixir; for - {}", FACADE_LOGGER_NAME);
                 return null;
             }
         }
-        log.info("User {} hasn't such ingredients; for - {}", user.getName(), FACADE_LOGGER);
+        log.info("User {} hasn't such ingredients; for - {}", user.getName(), FACADE_LOGGER_NAME);
         return null;
     }
 
-    private UserRoles getAlchemyRole() {
-        return rolesRepository.findByName(SIMPLE_ALCHEMIST);
+    private UserRole getAlchemyRole() {
+        return rolesRepository.findByName(SIMPLE_ALCHEMIST).isPresent()
+                ? rolesRepository.findByName(SIMPLE_ALCHEMIST).get()
+                : null;
     }
 
     private Ingredient combineIngredients(List<Ingredient> combination, List<Ingredient> elixirList) {
@@ -141,7 +152,7 @@ public class AlchemyFacade {
     }
 
     private Ingredient matchWithRecipes(Ingredient elixir, List<Ingredient> combination) {
-        List<Ingredient> matchResult = recipeRepository.getByName(elixir.getName()).getRecipes()
+        List<Ingredient> matchResult = recipeRepository.getByName(elixir.getName()).get().getRecipe()
                 .stream()
                 .filter(combination::contains)
                 .collect(Collectors.toList());
@@ -152,7 +163,7 @@ public class AlchemyFacade {
     private Ingredient ifRecipeUnlocked(List<Ingredient> combination, User user) {
         return user.getUnlockedRecipes()
                 .stream()
-                .map(Recipe::getRecipes)
+                .map(Recipe::getRecipe)
                 .map(ingredients -> combineIngredients(combination, ingredients))
                 .findFirst()
                 .orElse(null);

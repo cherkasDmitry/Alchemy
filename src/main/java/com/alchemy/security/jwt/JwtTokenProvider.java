@@ -1,6 +1,6 @@
 package com.alchemy.security.jwt;
 
-import com.alchemy.entities.UserRoles;
+import com.alchemy.entities.UserRole;
 import com.alchemy.utils.exceptions.JwtAuthenticationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -50,7 +50,7 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String username, List<UserRoles> roles) {
+    public String createToken(String username, List<UserRole> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", getRoleNames(roles));
         Date now = new Date();
@@ -88,7 +88,7 @@ public class JwtTokenProvider {
         }
     }
 
-    private List<String> getRoleNames(List<UserRoles> userRoles) {
+    private List<String> getRoleNames(List<UserRole> userRoles) {
         List<String> result = new ArrayList<>();
         userRoles.forEach(role -> result.add(role.getName()));
         return result;

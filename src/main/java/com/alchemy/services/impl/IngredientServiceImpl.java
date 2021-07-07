@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.alchemy.utils.AlchemyConstants.INGREDIENT_SERVICE_LOGGER;
+import static com.alchemy.utils.AlchemyConstants.INGREDIENT_SERVICE_LOGGER_NAME;
 
 @Slf4j
 @Service
@@ -28,43 +28,45 @@ public class IngredientServiceImpl implements IngredientService {
     public IngredientDto getById(String id) {
         IngredientDto result = ingredientRepository.findById(id)
                 .map(ingredientTransformer::entityToDto)
-                .orElseThrow(() -> new NotFoundException(INGREDIENT_SERVICE_LOGGER, id));
-        log.info("IN findById found - {}; for - {}", result.toString(), INGREDIENT_SERVICE_LOGGER);
+                .orElseThrow(() -> new NotFoundException(INGREDIENT_SERVICE_LOGGER_NAME, id));
+        log.info("IN findById found - {}; for - {}", result.toString(), INGREDIENT_SERVICE_LOGGER_NAME);
         return result;
     }
 
     @Override
     public IngredientDto getByName(String ingredientName) {
         IngredientDto result =
-                ingredientTransformer.entityToDto(ingredientRepository.getIngredientByName(ingredientName));
-        log.info("IN getByName found - {}; for - {}", result.toString(), INGREDIENT_SERVICE_LOGGER);
+                ingredientTransformer.entityToDto(ingredientRepository.getIngredientByName(ingredientName).isPresent()
+                        ? ingredientRepository.getIngredientByName(ingredientName).get()
+                        : null);
+        log.info("IN getByName found - {}; for - {}", result.toString(), INGREDIENT_SERVICE_LOGGER_NAME);
         return result;
     }
 
     @Override
     public List<IngredientDto> getAll() {
         List<IngredientDto> result = ingredientTransformer.entityToDto(ingredientRepository.findAll());
-        log.info("IN getAll - {} entities found; for - {}", result.size(), INGREDIENT_SERVICE_LOGGER);
+        log.info("IN getAll - {} entities found; for - {}", result.size(), INGREDIENT_SERVICE_LOGGER_NAME);
         return result;
     }
 
     @Override
     public void delete(String id) {
         ingredientRepository.deleteById(id);
-        log.info("IN delete entity with id: {}; for - {}", id, INGREDIENT_SERVICE_LOGGER);
+        log.info("IN delete entity with id: {}; for - {}", id, INGREDIENT_SERVICE_LOGGER_NAME);
     }
 
     @Override
     public List<IngredientDto> sortBy(AlchemySortParams parameter) {
         List<IngredientDto> result = ingredientTransformer.entityToDto(sort(parameter));
-        log.info("Entities were sorted by: {}; for - {}", parameter.name(), INGREDIENT_SERVICE_LOGGER);
+        log.info("Entities were sorted by: {}; for - {}", parameter.name(), INGREDIENT_SERVICE_LOGGER_NAME);
         return result;
     }
 
     @Override
     public List<IngredientDto> filterBy(Object parameter) {
         List<IngredientDto> result = ingredientTransformer.entityToDto(filter(parameter));
-        log.info("Entities were filtered by: {}; for - {}", parameter.getClass(), INGREDIENT_SERVICE_LOGGER);
+        log.info("Entities were filtered by: {}; for - {}", parameter.getClass(), INGREDIENT_SERVICE_LOGGER_NAME);
         return result;
     }
 
@@ -74,7 +76,7 @@ public class IngredientServiceImpl implements IngredientService {
         if (moreThanCost) list = ingredientRepository.findByCostAfter(cost);
         else list = ingredientRepository.findByCostBefore(cost);
         List<IngredientDto> result = ingredientTransformer.entityToDto(list);
-        log.info("Entities were filtered by cost; for - {}", INGREDIENT_SERVICE_LOGGER);
+        log.info("Entities were filtered by cost; for - {}", INGREDIENT_SERVICE_LOGGER_NAME);
         return result;
     }
 

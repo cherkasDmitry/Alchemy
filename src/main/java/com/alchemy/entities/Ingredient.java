@@ -25,7 +25,7 @@ import java.util.List;
 public class Ingredient {
 
     @Id
-    @GenericGenerator(name = "ingredient_id", strategy = "com.alchemistry.utils.UUIDIdGenerator")
+    @GenericGenerator(name = "ingredient_id", strategy = "com.alchemy.utils.UUIDIdGenerator")
     @GeneratedValue(generator = "ingredient_id")
     private String id;
     @Column(name = "ingredient_name")
@@ -37,7 +37,5 @@ public class Ingredient {
     @Column(name = "ingredient_cost")
     private Long cost;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<User> ingredientOwners;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Recipe> recipes;
+    private List<Recipe> recipe;
 }

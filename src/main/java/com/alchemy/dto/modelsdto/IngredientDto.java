@@ -1,7 +1,7 @@
 package com.alchemy.dto.modelsdto;
 
 import com.alchemy.entities.IngredientType;
-import com.alchemy.entities.User;
+import com.alchemy.entities.Recipe;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +19,6 @@ public class IngredientDto {
     private IngredientType type;
     private Long cost;
     private Integer level;
-    private List<User> ingredientOwners;
+    private List<Recipe> recipe;
+
 }

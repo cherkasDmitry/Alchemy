@@ -2,13 +2,12 @@ package com.alchemy.utils;
 
 public interface AlchemyConstants {
 
-    String USER_SERVICE_LOGGER = "UserService_logger";
-    String INGREDIENT_SERVICE_LOGGER = "IngredientService_logger";
-    String ELIXIR_SERVICE_LOGGER = "ElixirService_logger";
-    String JWT_SERVICE_LOGGER = "JwtUserDetailsService_logger";
-    String FACADE_LOGGER = "AlchemyFacade_logger";
+    String USER_SERVICE_LOGGER_NAME = "UserService_logger_name";
+    String INGREDIENT_SERVICE_LOGGER_NAME = "IngredientService_logger_name";
+    String JWT_SERVICE_LOGGER_NAME = "JwtUserDetailsService_logger_name";
+    String FACADE_LOGGER_NAME = "AlchemyFacade_logger_name";
 
-    Long SIMPLE_ALCHEMIST_STARTER_COINS_PACK = 1000L;
+    Long SIMPLE_ALCHEMIST_STARTER_COINS_PACK = 100L;
 
     String UNIMPLEMENTED = "Unimplemented method";
 

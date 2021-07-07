@@ -1,7 +1,7 @@
 package com.alchemy.transformers.impl;
 
 import com.alchemy.entities.User;
-import com.alchemy.entities.UserRoles;
+import com.alchemy.entities.UserRole;
 import com.alchemy.security.jwt.JwtUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,7 +37,7 @@ public final class JwtUserTransformer {
                 .build();
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<UserRoles> userRoles) {
+    private static List<GrantedAuthority> mapToGrantedAuthorities(List<UserRole> userRoles) {
         return userRoles.stream()
                 .map(role ->
                         new SimpleGrantedAuthority(role.getName())
