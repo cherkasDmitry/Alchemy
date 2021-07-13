@@ -1,0 +1,239 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2.0.0" author="dmitry.cherkas">
+
+        <insert tableName="roles">
+            <column name="role_name" value="User"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="role_name" value="Admin"/>
+        </insert>
+
+    </changeSet>
+
+    <changeSet id="2.0.1" author="dmitry.cherkas">
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Кровь проститутки"/>
+            <column name="ingredient_type" value="LIQUID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="11"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Кровь девственницы"/>
+            <column name="ingredient_type" value="LIQUID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="14"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Пыль праха дракона"/>
+            <column name="ingredient_type" value="POWDER"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="39"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Чёрная полосочка зебры"/>
+            <column name="ingredient_type" value="POWDER"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="24"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Слеза депутата"/>
+            <column name="ingredient_type" value="LIQUID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="22"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Бубон монаха 13го века снятый посмертно"/>
+            <column name="ingredient_type" value="SOLID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="54"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Сломанный ноготь выпускницы"/>
+            <column name="ingredient_type" value="SOLID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="9"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Верёвка снятая с висельника"/>
+            <column name="ingredient_type" value="SOLID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="19"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Мозоль святого Сантьяго"/>
+            <column name="ingredient_type" value="SOLID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="12"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Соскоб чайного кольца на кружке 15ти летней выдержки"/>
+            <column name="ingredient_type" value="SOLID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="31"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Живой богомол после спаривания"/>
+            <column name="ingredient_type" value="SOLID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="43"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Пурпурный крест Ефросиньи Полоцкой"/>
+            <column name="ingredient_type" value="METAL"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="96"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Пудра с лица Марии Магдалены"/>
+            <column name="ingredient_type" value="POWDER"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="61"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Вода взятая у статуи писающего мальчика 29 февраля"/>
+            <column name="ingredient_type" value="LIQUID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="58"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Слюна саблезубой белки"/>
+            <column name="ingredient_type" value="LIQUID"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="70"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Пыль осевшая на ожоге 3 степени полученном в жерле вулкана"/>
+            <column name="ingredient_type" value="POWDER"/>
+            <column name="level" value="0"/>
+            <column name="ingredient_cost" value="82"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Кровный мерж конфликт"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="1"/>
+            <column name="ingredient_cost" value="35"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Экстракт бытовухи"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="1"/>
+            <column name="ingredient_cost" value="65"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Экстракт афигительной истории"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="1"/>
+            <column name="ingredient_cost" value="53"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Экстракт болячек"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="1"/>
+            <column name="ingredient_cost" value="159"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Экстракт псевдохрабрости"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="1"/>
+            <column name="ingredient_cost" value="202"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Экстракт грустного чаепития"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="1"/>
+            <column name="ingredient_cost" value="120"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Экстракт животной преисполненности"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="1"/>
+            <column name="ingredient_cost" value="146"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Почти живительная влага"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="1"/>
+            <column name="ingredient_cost" value="77"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Не святая вода"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="2"/>
+            <column name="ingredient_cost" value="227"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Экстракт сюжета на НТВ"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="2"/>
+            <column name="ingredient_cost" value="267"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Самогон"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="2"/>
+            <column name="ingredient_cost" value="396"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Вакцина от ковида"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="2"/>
+            <column name="ingredient_cost" value="270"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Зелье полного небессмертия"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="3"/>
+            <column name="ingredient_cost" value="672"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Слеза посетителя поликлиники"/>
+            <column name="ingredient_type" value="ELIXIR"/>
+            <column name="level" value="3"/>
+            <column name="ingredient_cost" value="581"/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="ingredient_name" value="Философский камень"/>
+            <column name="ingredient_type" value="SOLID"/>
+            <column name="level" value="4"/>
+            <column name="ingredient_cost" value="9999"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
