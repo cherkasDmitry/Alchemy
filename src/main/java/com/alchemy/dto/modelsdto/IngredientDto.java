@@ -19,6 +19,5 @@ public class IngredientDto {
     private IngredientType type;
     private Long cost;
     private Integer level;
-    private List<Recipe> recipe;
 
 }

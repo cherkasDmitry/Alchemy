@@ -1,4 +1,4 @@
-package com.alchemy.facade;
+package com.alchemy.facades;
 
 import com.alchemy.dto.modelsdto.IngredientDto;
 import com.alchemy.dto.requsestdto.CombineIngredientsRequest;
@@ -8,7 +8,7 @@ import com.alchemy.entities.IngredientType;
 import com.alchemy.entities.Recipe;
 import com.alchemy.entities.User;
 import com.alchemy.entities.UserRole;
-import com.alchemy.repositories.AmountRepository;
+import com.alchemy.repositories.InventoryItemRepository;
 import com.alchemy.repositories.IngredientRepository;
 import com.alchemy.repositories.RecipeRepository;
 import com.alchemy.repositories.UserRepository;
@@ -35,7 +35,7 @@ public class AlchemyFacade {
     private final Transformer<Ingredient, IngredientDto> ingredientTransformer;
     private final UserRepository userRepository;
     private final UserRolesRepository rolesRepository;
-    private final AmountRepository amountRepository;
+    private final InventoryItemRepository amountRepository;
     private final RecipeRepository recipeRepository;
     private final IngredientService ingredientService;
     private final IngredientRepository ingredientRepository;

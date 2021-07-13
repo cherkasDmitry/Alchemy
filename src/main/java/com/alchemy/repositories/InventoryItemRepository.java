@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AmountRepository extends JpaRepository<InventoryItem,String> {
+public interface InventoryItemRepository extends JpaRepository<InventoryItem,String> {
 
     List<InventoryItem> findByUserId(String id);
 

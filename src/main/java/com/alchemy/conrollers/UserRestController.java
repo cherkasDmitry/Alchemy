@@ -3,7 +3,7 @@ package com.alchemy.conrollers;
 import com.alchemy.dto.modelsdto.IngredientDto;
 import com.alchemy.dto.modelsdto.UserDto;
 import com.alchemy.dto.requsestdto.CombineIngredientsRequest;
-import com.alchemy.facade.AlchemyFacade;
+import com.alchemy.facades.AlchemyFacade;
 import com.alchemy.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

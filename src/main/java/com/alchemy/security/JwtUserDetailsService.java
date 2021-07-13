@@ -2,8 +2,8 @@ package com.alchemy.security;
 
 import com.alchemy.entities.User;
 import com.alchemy.security.jwt.JwtUser;
-import com.alchemy.transformers.impl.JwtUserTransformer;
 import com.alchemy.services.UserService;
+import com.alchemy.transformers.impl.JwtUserTransformer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +26,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userService.getUserTransformer().dtoToEntity(userService.getByName(s));
+        User user = userService.getByName(s);
         JwtUser jwtUser = JwtUserTransformer.create(user);
         log.info("User with username: {} successfully loaded; for - {}", s, JWT_SERVICE_LOGGER_NAME);
         return jwtUser;
